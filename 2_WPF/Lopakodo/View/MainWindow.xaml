@@ -1,0 +1,70 @@
+﻿<Window x:Class="Lopakodo.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Lopakodo Game" Height="480" Width="480" MinHeight="480" MinWidth="480" MaxHeight="480" MaxWidth="480">
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding MovePlayerCommand}" CommandParameter="W" Key="W"/>
+        <KeyBinding Command="{Binding MovePlayerCommand}" CommandParameter="A" Key="A"/>
+        <KeyBinding Command="{Binding MovePlayerCommand}" CommandParameter="S" Key="S"/>
+        <KeyBinding Command="{Binding MovePlayerCommand}" CommandParameter="D" Key="D"/>
+        <KeyBinding Command="{Binding PauseGameCommand}" Key="Space"/>
+        <KeyBinding Command="{Binding LoadGameCommand}" Modifiers="Ctrl" Key="O"/>
+        <KeyBinding Command="{Binding SaveGameCommand}" Modifiers="Ctrl" Key="S"/>
+    </Window.InputBindings>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0">
+            <MenuItem Header="File">
+                <MenuItem Header="New game">
+                    <MenuItem Header="Basement" Command="{Binding NewGameBasementCommand}"/>
+                    <MenuItem Header="Showers" Command="{Binding NewGameShowersCommand}"/>
+                    <MenuItem Header="School" Command="{Binding NewGameSchoolCommand}"/>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="Save game" Command="{Binding SaveGameCommand}"/>
+                <MenuItem Header="Load game" Command="{Binding LoadGameCommand}"/>
+                <Separator/>
+                <MenuItem Header="Quit" Command="{Binding QuitGameCommand}" />
+            </MenuItem>
+        </Menu>
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding Fields}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Rows="{Binding gfp.GameFieldSize}" Columns="{Binding gfp.GameFieldSize}" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Button Content="{Binding Text}" Focusable="False" RenderTransformOrigin="0.5, 0.5" FontSize="20">
+                        <Button.RenderTransform>
+                            <ScaleTransform ScaleX="1" ScaleY="1" />
+                        </Button.RenderTransform>
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="White" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text}" Value="W">
+                                        <Setter Property="Background" Value="Black" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="Button.Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0:00:02" From="0" To="1" Storyboard.TargetProperty="Opacity" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</Window>

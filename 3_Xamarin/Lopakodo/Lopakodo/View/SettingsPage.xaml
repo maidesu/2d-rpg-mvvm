@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Lopakodo.View.SettingsPage"
+             Title="File">
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <Style x:Key="MainLabelStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="Micro" />
+        <Setter Property="Margin" Value="1" />
+      </Style>
+      <Style x:Key="MainButtonStyle" TargetType="Button">
+        <Setter Property="FontSize" Value="Small" />
+        <Setter Property="BackgroundColor" Value="Blue" />
+        <Setter Property="BorderRadius" Value="2" />
+        <Setter Property="BorderColor" Value="Blue" />
+        <Setter Property="Margin" Value="5" />
+      </Style>
+    </ResourceDictionary>
+  </ContentPage.Resources>
+
+    <StackLayout Orientation="Vertical">
+      <Button Command="{Binding LoadGameCommand}" Text="Load" Style="{StaticResource MainButtonStyle}" />
+      <Button Command="{Binding SaveGameCommand}" Text="Save" Style="{StaticResource MainButtonStyle}" />
+    </StackLayout>
+</ContentPage>

@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:view="clr-namespace:Lopakodo.View"
+             xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+             x:Class="Lopakodo.View.GamePage"
+             Title="Lopakodo Game">
+  <ContentPage.Resources>
+      <ResourceDictionary>
+      <Style x:Key="MainLabelStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="Margin" Value="1" />
+      </Style>
+      <Style x:Key="MainButtonStyle" TargetType="Button">
+        <Setter Property="FontSize" Value="Micro" />
+        <Setter Property="BackgroundColor" Value="Blue" />
+        <Setter Property="BorderRadius" Value="0" />
+        <Setter Property="BorderWidth" Value="0" />
+        <Setter Property="BorderColor" Value="Blue" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="HeightRequest" Value="30" />
+      </Style><Style x:Key="MoveButtonStyle" TargetType="Button">
+        <Setter Property="FontSize" Value="Micro"/>
+        <Setter Property="BackgroundColor" Value="Gray" />
+        <Setter Property="TextColor" Value="White" />
+        <Setter Property="BorderRadius" Value="0" />
+        <Setter Property="BorderWidth" Value="0" />
+        <Setter Property="BorderColor" Value="Blue" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="HeightRequest" Value="30" />
+        <Setter Property="WidthRequest" Value="40" />
+      </Style>
+      <Style x:Key="FieldStyle" TargetType="Button">
+        <Setter Property="FontSize" Value="{Binding gfp.GraphicsFieldSize}" />
+        <Setter Property="Margin" Value="0.5" />
+        <Setter Property="BorderRadius" Value="0" />
+        <Setter Property="BorderWidth" Value="0" />
+        <Setter Property="WidthRequest" Value="{Binding gfp.GraphicsFieldSize}" />
+        <Setter Property="HeightRequest" Value="{Binding gfp.GraphicsFieldSize}" />
+        <Style.Triggers>
+            <DataTrigger TargetType="Button" Binding="{Binding Text}" Value="W">
+                <Setter Property="Background" Value="Black" />
+            </DataTrigger>
+        </Style.Triggers>
+      </Style>
+    </ResourceDictionary>
+  </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+
+        </Grid.RowDefinitions>
+
+        <Button Text="Pause" Command="{Binding PauseGameCommand}" Style="{StaticResource MainButtonStyle}" Grid.Row="0" HorizontalOptions="Start"/>
+        <Button Text="File" Command="{Binding QuitGameCommand}" Style="{StaticResource MainButtonStyle}" Grid.Row="0" HorizontalOptions="End" />
+
+
+        <controls:FlowListView HasUnevenRows="False" Grid.Row="1" FlowColumnCount="{Binding gfp.GameFieldSize}" FlowItemsSource="{Binding Fields}" SeparatorVisibility="None" VerticalOptions="Start" HorizontalOptions="Center">
+            <controls:FlowListView.FlowColumnTemplate>
+                <DataTemplate>
+                    <Button Text="{Binding Text}" Style="{StaticResource FieldStyle}" VerticalOptions="Start" HorizontalOptions="Center" />
+                </DataTemplate>
+            </controls:FlowListView.FlowColumnTemplate>
+        </controls:FlowListView>
+
+
+        <StackLayout Grid.Row="2" Orientation="Vertical" VerticalOptions="End" HorizontalOptions="Center">
+
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Button Text="⬅" Command="{Binding MovePlayerCommand}" CommandParameter="A" Style="{StaticResource MoveButtonStyle}"  />
+                <Button Text="⬆" Command="{Binding MovePlayerCommand}" CommandParameter="W" Style="{StaticResource MoveButtonStyle}"  />
+                <Button Text="⬇" Command="{Binding MovePlayerCommand}" CommandParameter="S" Style="{StaticResource MoveButtonStyle}"  />
+                <Button Text="➡" Command="{Binding MovePlayerCommand}" CommandParameter="D" Style="{StaticResource MoveButtonStyle}"  />
+            </StackLayout>
+        
+        </StackLayout>
+            
+    </Grid>
+
+</ContentPage>
