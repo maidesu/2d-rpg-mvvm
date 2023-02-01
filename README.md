@@ -2,7 +2,7 @@
 
 This project was created to practice the implementation of the same functionality in different frameworks.
 
-> All of the projects below follow an MVC architecture.
+> All of the projects below follow an MVVM architecture.
 
 1. Windows Forms
 2. Windows Presentation Foundation
